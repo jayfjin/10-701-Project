@@ -1,8 +1,10 @@
 import data
 from sklearn import linear_model
 import numpy as np
+import pandas as pd
+import os
 
-if __name__ == "__main__" or not os.file.exists('bow_selected.txt'):
+if __name__ == "__main__" or not os.path.exists('bow_selected.txt'):
     nonzero, = np.where(data.BBC_x.loc[:,data.isbow].std() != 0)
     BBC_nonzero = data.BBC_x.loc[:,data.isbow].iloc[:,nonzero]
     alphas_grid, scores_path = linear_model.lasso_stability_path(BBC_nonzero.values, data.BBC_y)
@@ -22,3 +24,12 @@ if __name__ == "__main__" or not os.file.exists('bow_selected.txt'):
     pylab.axis('tight')
     pylab.legend((sel[0], nsel[0]), ('selected features', 'other features'))
     pylab.savefig('lasso_select2.pdf')
+else:
+    bow_selected = np.loadtxt('bow_selected.txt', dtype=bool)
+
+def remove_bad_words(X):
+    Xnonbow = X.loc[:, ~data.isbow]
+    Xbow = X.loc[:, data.isbow]
+    assert Xbow.shape[1] == len(bow_selected)
+    Xbow = Xbow.loc[:, bow_selected]
+    return pd.concat((Xnonbow, Xbow), 1)
