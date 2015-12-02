@@ -39,7 +39,7 @@ Motion Distribution ( Mean and Variance)
 Frame Difference Distribution ( Mean and Variance)
 4 - 5
 Short time energy ( Mean and Variance)
-6 – 7 
+6 - 7 
 ZCR ( Mean and Variance)
 8 - 9
 Spectral Centroid ( Mean and Variance)
